@@ -131,7 +131,7 @@ HostMin:   192.168.0.1
 HostMax:   192.168.0.126         
 Hosts/Net: 126 
 ```
-- "Hosts-B" is the subnet containing host-b. According to design requirements must be able to scale up to respectively** 227** usable addresses. So **8** bits are needed for hosts (**2 ^ 8 = 256**). The netmask is 255.255.255.0 (/24), the network address is 192.168.1.0. In detail:
+- "Hosts-B" is the subnet containing host-b. According to design requirements must be able to scale up to respectively **227** usable addresses. So **8** bits are needed for hosts (**2 ^ 8 = 256**). The netmask is 255.255.255.0 (/24), the network address is 192.168.1.0. In detail:
 
 ```
 Address:   192.168.1.0           
@@ -157,7 +157,7 @@ HostMin:   192.168.4.1
 HostMax:   192.168.5.254         
 Hosts/Net: 510
 ```
-- The last subnet is the one that connects router-1 and router-2. The subnet has the purpose of connecting the two routers,** 2** bits will be enough for the hosts (**2 ^ 2 = 4**). The network mask is 255.255.255.252 (/30), the network address is 192.168.2.0.
+- The last subnet is the one that connects router-1 and router-2. The subnet has the purpose of connecting the two routers, **2** bits will be enough for the hosts (**2 ^ 2 = 4**). The network mask is 255.255.255.252 (/30), the network address is 192.168.2.0.
 
 ```
 Address:   192.168.2.0           
@@ -170,11 +170,12 @@ HostMin:   192.168.2.1
 HostMax:   192.168.2.2           
 Hosts/Net: 2  
 ```
-##Network map from cisco
+## Network map from cisco
 After assigning the addresses to the hosts we used Cisco Packet Tracer software to create a visual representation of the network. We have configured each component to verify the correct functioning of the network before setting the individual virtual machines by vagrant.
+
 ![image](/util/cisco_img.png)
 
-##VLAN
+## VLAN
 To configure the Hosts-a and Hosts-b subnets using the only physical interface between the router and the switch (given by the model provided) we chose to use the VLANs and to divide the single physical interface into two sub-interfaces. 
 - Hosts-a belongs to **VLAN 10**
 - Hosts-b belongs to **VLAN 20** 
@@ -184,7 +185,7 @@ The switch ports for using VLANs have been set as follow:
 - Ports to hosts-b set to **access mode**
 - Port to router-1 set to **trunk mode**
 
-##Editing vagrantfile 
+## Editing vagrantfile 
 All Vagrant configuration is done in the file called *Vagrantfile*, it contains the settings of each virtual machine.
 Example:
 
@@ -209,10 +210,10 @@ First, every provisioner is configured within Vagrantfile using the *config.vm.p
 Optionally, we can configure provisioners to run on every up or reload. To do this we have to set the run option to "always", as shown below:
  `hosta.vm.provision "shell", path: "hosta.sh", run: 'always'`
 
-##File script list
+## File script list
 As already described, each VM has a specific file script with all the configuration commands inside. In particular:
 
-###Host-a: 
+### Host-a: 
 ```
 export DEBIAN_FRONTEND=noninteractive
 #installation of curl for http request for host-c test
@@ -223,7 +224,7 @@ sudo ip link set enp0s8 up
 #Setting up default gateway
 sudo ip route add default via 192.168.0.1 
 ```
-###Host-b: 
+### Host-b: 
 ```
 export DEBIAN_FRONTEND=noninteractive
 #installation of curl for http request for host-c test
@@ -234,7 +235,7 @@ sudo ip link set enp0s8 up
 #Setting up default gateway
 sudo ip route add default via 192.168.1.1
 ```
-###Switch:
+### Switch:
 ```
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -253,7 +254,7 @@ sudo ip link set enp0s9 up
 sudo ip link set enp0s10 up
 
 ```
-###Router-1:
+### Router-1:
 ```
 export DEBIAN_FRONTEND=noninteractive
 #installation of curl for http request for host-c test
@@ -277,7 +278,7 @@ sudo ip route add 192.168.4.0/23 via 192.168.2.2 dev enp0s9
 #enable IP forwarding
 sudo sysctl net.ipv4.ip_forward=1
 ```
-###Router-2
+### Router-2
 ```
 export DEBIAN_FRONTEND=noninteractive
 #installation of curl for http request for host-c test
@@ -298,7 +299,7 @@ sudo sysctl net.ipv4.ip_forward=1
 ```
 Note: The static routing of router-2 in order to reach hosts-a and hosts-b we have decided to combine the two rules into one, making it as general as possible as required by the requirements of the project, so **"Routes must be as generic as possible ".**
 
-###Host-c:
+### Host-c:
 ```
 export DEBIAN_FRONTEND=noninteractive
 #Installation of curl for http request and docker installation 
@@ -321,17 +322,18 @@ sudo ip link set enp0s8 up
 #Setting up default gateway
 sudo ip route add default via 192.168.4.1
 ```
-##Results
+## Results
 In conclusion, once logged into host-a, for example, we can verify the correct configuration by checking the host's IP address and then ping host-c to check reachability.
-###Configuration and reachability
+### Configuration and reachability
 `Ifconfig -a`
 ![demo](/util/demo.gif)
 
-###Web server 
+### Web server 
 First we check if the docker container with the nginx image is up and running 
 ![demo](/util/demo_server.gif)
 
 Finally, to test the web server we use the curl command to make an http request. The server will respond by displaying the html page.
 `curl http://192.168.4.2:80`
+
 ![image](/util/nginx_page.png)
 
