@@ -173,7 +173,7 @@ Hosts/Net: 2
 ## Network map from cisco
 After assigning the addresses to the hosts we used Cisco Packet Tracer software to create a visual representation of the network. We have configured each component to verify the correct functioning of the network before setting the individual virtual machines by vagrant.
 
-![image](/util/cisco_img.png)
+![image](/util/cisco_img.PNG)
 
 ## VLAN
 To configure the Hosts-a and Hosts-b subnets using the only physical interface between the router and the switch (given by the model provided) we chose to use the VLANs and to divide the single physical interface into two sub-interfaces. 
@@ -335,5 +335,5 @@ First we check if the docker container with the nginx image is up and running
 Finally, to test the web server we use the curl command to make an http request. The server will respond by displaying the html page.
 `curl http://192.168.4.2:80`
 
-![image](/util/nginx_page.png)
+![image](/util/nginx_page.PNG)
 
