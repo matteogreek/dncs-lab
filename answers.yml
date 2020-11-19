@@ -1,0 +1,18 @@
+FirstName: Matteo
+LastName: Greco
+MatriculationNumber: 201936
+AcademicYear: 2019-2020
+GitHubUrl: YourGithubRepositoryURL
+Subnets:
+  HostsA:
+    RequiredAddresses: 87
+    SubnetAddress: 192.168.0.0
+    SubnetPrefixLength: 255.255.255.128
+  HostsB:
+    RequiredAddresses: 227
+    SubnetAddress: 192.168.1.0
+    SubnetPrefixLength: 255.255.255.0
+  Hub:
+    RequiredAddresses: 397
+    SubnetAddress: 192.168.4.0
+    SubnetPrefixLength: 255.255.254.0
