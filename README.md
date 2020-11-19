@@ -326,6 +326,7 @@ sudo ip route add default via 192.168.4.1
 In conclusion, once logged into host-a, for example, we can verify the correct configuration by checking the host's IP address and then ping host-c to check reachability.
 ### Configuration and reachability
 `Ifconfig -a`
+
 ![demo](/util/demo.gif)
 
 ### Web server 
