@@ -181,7 +181,7 @@ To configure the Hosts-a and Hosts-b subnets using the only physical interface b
 - Hosts-b belongs to **VLAN 20** 
 
 The switch ports for using VLANs have been set as follow:
-- Ports to hosts-a set to** access mode**
+- Ports to hosts-a set to **access mode**
 - Ports to hosts-b set to **access mode**
 - Port to router-1 set to **trunk mode**
 
