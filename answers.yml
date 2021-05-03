@@ -2,7 +2,7 @@ FirstName: Matteo
 LastName: Greco
 MatriculationNumber: 201936
 AcademicYear: 2019-2020
-GitHubUrl: YourGithubRepositoryURL
+GitHubUrl: https://github.com/matteogreek/dncs-lab
 Subnets:
   HostsA:
     RequiredAddresses: 87
